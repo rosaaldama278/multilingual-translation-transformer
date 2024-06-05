@@ -1,3 +1,11 @@
+'''
+Author: Ting Aldama tingaldama278@gmail.com
+Date: 2024-05-22 08:06:01
+LastEditors: Ting Aldama tingaldama278@gmail.com
+LastEditTime: 2024-06-05 10:26:39
+FilePath: /multi-lang-translation/scripts/inference.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+'''
 import sys
 import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -11,23 +19,7 @@ from model.encoder import *
 from model.decoder import *
 from model.transformer import *
 
-
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-num_layers = 4
-num_heads = 4
-d_model = 256
-d_ff = 1024
-
-encoder = Encoder(vocab_size=10000, n_layer=num_layers, n_head=num_heads, d_model=d_model, d_ff=d_ff)
-decoder = Decoder(vocab_size=10000, n_layer=num_layers, n_head=num_heads, d_model=d_model, d_ff=d_ff)
-model = EncoderDecoder(encoder, decoder, device).to(device)
-model_path = os.path.join(parent_dir, 'checkpoints', 'model_epoch_11.pt')
-model.load_state_dict(torch.load(model_path))
-
-spm_model_path = os.path.join(parent_dir, 'data','spm', 'ten_zh_spm.model')
-sp = spm.SentencePieceProcessor(model_file=spm_model_path)
-
 def translate(src_sentence, model, sp, max_length=10):
     model.eval()
 
@@ -53,12 +45,35 @@ def translate(src_sentence, model, sp, max_length=10):
             break
 
     trg_tokens = sp.decode_ids(trg_indexes)
-    return trg_tokens.replace(" ", "")
+    return trg_tokens
 
 def main():
-    parser = argparse.ArgumentParser(description='Translate an English sentence to Chinese.')
-    parser.add_argument('sentence', type=str, help='The English sentence to translate.')
+    parser = argparse.ArgumentParser(description='Translate a sentence from source language to target language.')
+    parser.add_argument('src_lang', type=str, help='The source language.')
+    parser.add_argument('tgt_lang', type=str, help='The target language.')
+    parser.add_argument('sentence', type=str, help='The sentence to translate.')
     args = parser.parse_args()
+
+    src_lang = args.src_lang
+    tgt_lang = args.tgt_lang
+    src_sentence = args.sentence
+
+    num_layers = 4
+    num_heads = 4
+    d_model = 256
+    d_ff = 1024
+
+    encoder = Encoder(vocab_size=10000, n_layer=num_layers, n_head=num_heads, d_model=d_model, d_ff=d_ff)
+    decoder = Decoder(vocab_size=10000, n_layer=num_layers, n_head=num_heads, d_model=d_model, d_ff=d_ff)
+    model = EncoderDecoder(encoder, decoder, device).to(device)
+    model_path = os.path.join(parent_dir, 'checkpoints', src_lang + '-'  + tgt_lang, 'model.pt')
+    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+    model.eval()
+
+    spm_model_path = os.path.join(parent_dir, 'data', src_lang + '-' + tgt_lang, 'bpe', 'bpe.model')
+    sp = spm.SentencePieceProcessor(model_file=spm_model_path)
+
+# Rest of the translation code...
 
     src_sentence = args.sentence
 

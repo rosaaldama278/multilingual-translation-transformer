@@ -3,6 +3,7 @@ from gzip import GzipFile
 import sentencepiece as spm 
 import os 
 import json 
+import torch
 
 def extract_language_pairs(file_path):
     language_pairs = []
@@ -48,8 +49,7 @@ def train_bpe_tokneizer(input_file, model_prefix):
     eos_id=3
    )
     
-
-    
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 def tokenize_sentence(src_input_file,tgt_input_file, model_prefix, ouput_file):
     sp = spm.SentencePieceProcessor()
     sp.load(f'{model_prefix}.model')
