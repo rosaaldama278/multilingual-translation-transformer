@@ -1,4 +1,4 @@
-# **Indo-European Language translation app
+# Indo-European Language translation app
 
 This project provides an translation model which includes all indo-enropean languages plus Chinese using a Transformer architecture. The project is organized to be easily downloaded, set up, and used for both inference and further training.
 
