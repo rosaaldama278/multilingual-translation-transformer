@@ -2,6 +2,7 @@
 
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from scripts.inference import load_model, translate
+import os
 
 app = Flask(__name__)
 
@@ -34,4 +35,5 @@ def translate_route():
     return render_template('index.html', translation=translation, source_lang=source_lang, target_lang=target_lang, input_text=input_text)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
