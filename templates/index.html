@@ -3,18 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Language Translation</title>
+    <title>LLM Translation App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        .hint {
+            color: #888;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Multi-Language Translation</h1>
+    <h1>LLM Translation App</h1>
     <form action="{{ url_for('translate_route') }}" method="post">
         <label for="source_lang">Source Language:</label>
-        <input type="text" id="source_lang" name="source_lang" required><br><br>
+        <input type="text" id="source_lang" name="source_lang" required>
+        <span class="hint">(e.g., en)</span><br><br>
         
         <label for="target_lang">Target Language:</label>
-        <input type="text" id="target_lang" name="target_lang" required><br><br>
+        <input type="text" id="target_lang" name="target_lang" required>
+        <span class="hint">(e.g., de, es, zh)</span><br><br>
         
-        <label for="input_text">Text to Translate:</label>
+        <label for="input_text">Text to Translate:</label><br>
         <textarea id="input_text" name="input_text" rows="4" cols="50" required></textarea><br><br>
         
         <input type="submit" value="Translate">
