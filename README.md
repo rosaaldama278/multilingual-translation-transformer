@@ -14,7 +14,7 @@ This project provides an translation model which includes all indo-enropean lang
 1. **Clone the repository**:
    ```bash
    git clone <repository_url>
-   cd en_zh_translation
+   cd Indo-European-Language-translation-app
 
    ```
 2. **Install dependencies**:
