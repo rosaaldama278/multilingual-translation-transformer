@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Language Translation</title>
+</head>
+<body>
+    <h1>Multi-Language Translation</h1>
+    <form action="{{ url_for('translate_route') }}" method="post">
+        <label for="source_lang">Source Language:</label>
+        <input type="text" id="source_lang" name="source_lang" required><br><br>
+        
+        <label for="target_lang">Target Language:</label>
+        <input type="text" id="target_lang" name="target_lang" required><br><br>
+        
+        <label for="input_text">Text to Translate:</label>
+        <textarea id="input_text" name="input_text" rows="4" cols="50" required></textarea><br><br>
+        
+        <input type="submit" value="Translate">
+    </form>
+    
+    {% if translation %}
+        <h2>Translation</h2>
+        <p><strong>Source ({{ source_lang }}):</strong> {{ input_text }}</p>
+        <p><strong>Target ({{ target_lang }}):</strong> {{ translation }}</p>
+    {% endif %}
+</body>
+</html>
