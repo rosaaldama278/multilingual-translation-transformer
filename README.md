@@ -1,57 +1,73 @@
-# Indo-European Language translation app
+<!--
+ * @Author: Ting Aldama tingaldama278@gmail.com
+ * @Date: 2024-07-29 13:07:38
+ * @LastEditors: Ting Aldama tingaldama278@gmail.com
+ * @LastEditTime: 2024-07-29 13:13:03
+ * @FilePath: /multi-lang-translation/README.md
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+# Multi Language Translation Application
 
 This project provides an translation model which includes all indo-enropean languages plus Chinese using a Transformer architecture. The project is organized to be easily downloaded, set up, and used for both inference and further training.
 
 ## Features
 
-* Jieba + BPE tokenization for chinese language:
+* Jieba + BPE tokenization for Chinese language:
   * Experimented with multiple tokenization methods, For Chinese language,  the combination of pre-tokenization with Jieba and pre trained BPE yielded the best results
 * Trained with well-structured and high-quality parallel corpora
 * Train BPE tokenizers for both source and target languages
 
 ## Setup
 
+### Prerequisites
+
+- Python 3.6 or higher
+- pip (Python package installer)
+- virtualenv (optional but recommended)
+
+### Installation
 1. **Clone the repository**:
    ```bash
    git clone <repository_url>
-   cd Indo-European-Language-translation-app
+   cd multi-lang-translation
 
    ```
 2. **Install dependencies**:
    ```bash
    pip install -r resources/requirements.txt
 
-
    ```
 
-## Inference
 
-### Run the inference script:
+### Running the Application
 
-```bash
-English to Chinese translation example: 
-❯ python scripts/inference.py en zh "tell me how you feel"
-Translated Sentence: 告訴我你感觉如何?
-```
+1. **Start the Flask Application**
 
-```python
-English to German translation example: 
- python scripts/inference.py en de "today is such a good day"
-Translated sentence: Heute ist eine gute Tag
-```
+    ```sh
+    python app.py
+    ```
 
-### Inference detail:
+2. **Access the Web Interface**
 
-* The script will load the model checkpoint  with the best performance from 'checkpoints/model.pt'
-* It will process the input sentence, encode it will trained spm model located under data/bpe/bpe.model, and the output the translated chinese sentence
+    Open your web browser and navigate to `http://127.0.0.1:5002`.
 
-## Further training
+### Usage
 
-### Run the training script:
+1. **Enter Translation Details**
 
-```bash
-    python scripts/train.py
-```
+    - **Source Language**: Enter the source language code (e.g., `en` for English).
+    - **Target Language**: Enter the target language code (e.g., `zh` for Chinese).
+    - **Text to Translate**: Enter the text you want to translate.
+
+2. **Submit the Form**
+
+    Click the "Translate" button to get the translation.
+
+3. **View the Translation**
+
+    The translated text will be displayed on the same page.
+
+
 
 ### Training details:
 
